@@ -21,15 +21,16 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     [SerializeField]
     private float holdDampFactor = .1f;
     [SerializeField]
+    private float outDampFactor = .1f;
+    [SerializeField]
     private float verticalFactor = .3f;
     [SerializeField]
     private float rotationSpeed = 4.0f;
-    [SerializeField]
-    private float outDampFactor = .05f;
 
 
     private float outerBound;
-    private float choiceDistanceThreshold = 1.5f;
+    [SerializeField]
+    private float choiceDistanceThreshold = 150f;
 
     private Vector3 target = new Vector3(0,0,0);
     private Vector3 currentVelocity = new Vector3(0, 0, 0);
@@ -51,8 +52,8 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
         GameProcess.Instance.SlideManager.RegisterListener(this);
 
-        this.outerBound = this.sceneCamera.orthographicSize / (float)Screen.height * (float)Screen.width;
-
+        this.outerBound = (this.sceneCamera.orthographicSize ) *( (float)Screen.height / (float)Screen.width);
+        Debug.Log("bound " + this.outerBound);
         this.currentCard = card1;
     }
 
@@ -96,12 +97,12 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         Vector3 nextTarget;
         if (currentPosX >= this.choiceDistanceThreshold)
         {
-            nextTarget = new Vector3(this.outerBound + margin, this.target.y, this.target.z);
+            nextTarget = new Vector3(this.outerBound * margin, this.target.y, this.target.z);
             this.isTransitioningOut = true;
         }
         else if (currentPosX <= -this.choiceDistanceThreshold)
         {
-            nextTarget = new Vector3(- this.outerBound - margin, this.target.y, this.target.z);
+            nextTarget = new Vector3(- this.outerBound * margin, this.target.y, this.target.z);
             this.isTransitioningOut = true;
         }
         else
@@ -122,7 +123,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
         if (this.isTransitioningOut)
         {
-            factor = this.transitionDampFactor;
+            factor = this.outDampFactor;
         }
 
         pos = Vector3.SmoothDamp(pos, this.target, ref this.currentVelocity, factor, this.maxVelocity);
@@ -130,7 +131,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         float angle = pos.x * this.rotationSpeed;
         this.currentCard.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
 
-        if (this.isTransitioningOut && Mathf.Abs(pos.x) - this.outerBound > 2.5)
+        if (this.isTransitioningOut && Mathf.Abs(pos.x) > this.outerBound)
         {
             this.isTransitioningOut = false;
             this.target = this.forground;
