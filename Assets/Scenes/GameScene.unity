@@ -112,6 +112,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &37057201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 756475324455051231, guid: 2633b6421bbc359428ddbbba3c7d1f26,
+    type: 3}
+  m_PrefabInstance: {fileID: 494140763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e15702f45deccc4188201a274436eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &154874626
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +740,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1131374707 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 756475324455051231, guid: 2633b6421bbc359428ddbbba3c7d1f26,
+    type: 3}
+  m_PrefabInstance: {fileID: 2760550827323687390}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e15702f45deccc4188201a274436eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1277191754
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slideManager: {fileID: 623751329}
+  cardHandler: {fileID: 1277191757}
 --- !u!4 &1277191756
 Transform:
   m_ObjectHideFlags: 0
@@ -786,8 +811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneCamera: {fileID: 534669904}
-  card1: {fileID: 1693546538}
-  card2: {fileID: 494140764}
+  card1: {fileID: 1131374707}
+  card2: {fileID: 37057201}
   maxVelocity: 100000
   transitionDampFactor: 0.15
   holdDampFactor: 0.025
@@ -923,10 +948,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4548090372157071192, guid: 2633b6421bbc359428ddbbba3c7d1f26,
+    - target: {fileID: 2634443937745707917, guid: 2633b6421bbc359428ddbbba3c7d1f26,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
+      propertyPath: m_BlockingObjects
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2633b6421bbc359428ddbbba3c7d1f26, type: 3}

@@ -9,11 +9,11 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     private Camera sceneCamera = null;
 
     [SerializeField]
-    private Transform card1 = null;
+    private CardView card1 = null;
     [SerializeField]
-    private Transform card2 = null;
+    private CardView card2 = null;
 
-    private Transform currentCard = null;
+    private CardView currentCard = null;
     [SerializeField]
     private float maxVelocity = 10000;
     [SerializeField]
@@ -53,7 +53,6 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         GameProcess.Instance.SlideManager.RegisterListener(this);
 
         this.outerBound = (this.sceneCamera.orthographicSize ) *( (float)Screen.height / (float)Screen.width);
-        Debug.Log("bound " + this.outerBound);
         this.currentCard = card1;
     }
 
@@ -74,7 +73,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
 
         Vector2 delta = pos - this.startPosition;
-        Vector3 cardPosition = this.currentCard.position;
+        Vector3 cardPosition = this.currentCard.transform.position;
         cardPosition.x = delta.x;
         cardPosition.y = delta.y * this.verticalFactor;
 
@@ -113,6 +112,22 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         this.target = nextTarget;
     }
 
+    void SlideManager.IDragListener.OnClick(Vector2 pos)
+    {
+        if (this.isDragging)
+        {
+            return;
+        }
+        if (this.target != this.forground)
+        {
+            return;
+        }
+
+        CardView.CardState nextState = this.currentCard.CurrentState == CardView.CardState.Deployed ? CardView.CardState.Folded : CardView.CardState.Deployed;
+
+        this.currentCard.CurrentState = nextState;
+    }
+
     private void Update()
     {
         Vector3 pos = this.currentCard.transform.position;
@@ -127,9 +142,9 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
 
         pos = Vector3.SmoothDamp(pos, this.target, ref this.currentVelocity, factor, this.maxVelocity);
-        this.currentCard.position = pos;
+        this.currentCard.transform.position = pos;
         float angle = pos.x * this.rotationSpeed;
-        this.currentCard.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
+        this.currentCard.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
 
         if (this.isTransitioningOut && Mathf.Abs(pos.x) > this.outerBound)
         {
@@ -142,8 +157,10 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
 
     private void CycleCard()
     {
-        this.currentCard.localRotation = Quaternion.identity;
-        this.currentCard.position = this.background;
+        this.currentCard.transform.localRotation = Quaternion.identity;
+        this.currentCard.transform.position = this.background;
+        this.currentCard.ForceClose(); 
+
         if (this.currentCard == this.card2)
         {
             this.currentCard = this.card1;
@@ -153,6 +170,11 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
             this.currentCard = this.card2;
         }
 
-        this.currentCard.position = this.forground;
+        this.currentCard.transform.position = this.forground;
+    }
+
+    public bool IsCurrentCard(Transform transform)
+    {
+        return this.currentCard == transform;
     }
 }

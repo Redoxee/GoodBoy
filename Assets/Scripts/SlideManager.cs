@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SlideManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class SlideManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler {
 
     [SerializeField]
     private Camera watchingCamera = null;
@@ -12,6 +12,8 @@ public class SlideManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private HashSet<IDragListener> listeners = new HashSet<IDragListener>();
 
     private Vector2 screenSize;
+
+    private bool isClicking = false;
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class SlideManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public void OnDrag(PointerEventData eventData)
     {
+        this.isClicking = false;
         Vector2 position = eventData.position / this.screenSize;
 
         foreach (IDragListener listener in this.listeners)
@@ -61,10 +64,29 @@ public class SlideManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         this.listeners.Remove(listener);
     }
 
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    {
+        this.isClicking = true;
+    }
+
+    void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
+    {
+        if (this.isClicking)
+        {
+            Vector2 position = eventData.position / this.screenSize;
+
+            foreach (IDragListener listener in this.listeners)
+            {
+                listener.OnClick(position);
+            }
+        }
+    }
+
     public interface IDragListener
     {
         void OnBeginDrag(Vector2 pos);
         void OnDrag(Vector2 pos);
         void OnEndDrag(Vector2 pos);
+        void OnClick(Vector2 pos);
     }
 }

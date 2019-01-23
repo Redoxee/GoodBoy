@@ -24,6 +24,9 @@ public class GameProcess : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private CardHandler cardHandler = null;
+
     private void Awake()
     {
         if (GameProcess.InstanceStatic != null)
@@ -39,5 +42,13 @@ public class GameProcess : MonoBehaviour
         }
 
         GameProcess.InstanceStatic = this;
+    }
+
+    public void OnZoneClicked(CardView cardView)
+    {
+        if (this.cardHandler.IsCurrentCard(cardView.transform))
+        {
+            cardView.CurrentState = CardView.CardState.Deployed;
+        }
     }
 }

@@ -52,6 +52,8 @@ public class CardView : MonoBehaviour
         {
             progression = 1f - progression;
         }
+        progression = Mathf.Clamp01(progression);
+
         this.TweenHeight(progression);
     }
 
@@ -60,6 +62,13 @@ public class CardView : MonoBehaviour
         Vector2 size = this.contentTransform.sizeDelta;
         size.y = this.smallHeight + this.deployCurve.Evaluate(p) * (this.deployedHeight - this.smallHeight);
         this.contentTransform.sizeDelta = size;
+    }
+
+    public void ForceClose()
+    {
+        this.currentState = CardState.Folded;
+        this.TweenHeight(0f);
+        this.animationTime = -1f;
     }
 
     public enum CardState
