@@ -17,6 +17,17 @@ public class CardView : MonoBehaviour
     private float animationTime = -1f;
     private CardState currentState = CardState.Folded;
 
+    [SerializeField]
+    private UnityEngine.UI.Image voteImage = null;
+    [SerializeField]
+    private Sprite voteGoodSprite = null;
+    [SerializeField]
+    private Sprite voteBadSprite = null;
+    [SerializeField]
+    private AnimationCurve voteAlphaCurve = null;
+    [SerializeField]
+    private AnimationCurve voteScaleCurve = null;
+
     private void Update()
     {
         this.UpdateDeployment();
@@ -75,5 +86,20 @@ public class CardView : MonoBehaviour
     {
         Folded,
         Deployed,
+    }
+
+    public void SetVoteState(bool isGood, float progression = 0f)
+    {
+        Sprite nextSprite = isGood ? this.voteGoodSprite : this.voteBadSprite;
+        if (this.voteImage.sprite != nextSprite)
+        {
+            this.voteImage.sprite = nextSprite;
+        }
+        progression = Mathf.Clamp01(progression);
+        float colProgression = this.voteAlphaCurve.Evaluate(progression);
+        Color color = new Color(1, 1, 1, colProgression);
+        this.voteImage.color = color;
+        float scaleProg = this.voteScaleCurve.Evaluate(progression);
+        this.voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
     }
 }

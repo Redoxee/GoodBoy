@@ -44,11 +44,13 @@ public class GameProcess : MonoBehaviour
         GameProcess.InstanceStatic = this;
     }
 
-    public void OnZoneClicked(CardView cardView)
+    public void OnQuickLoveClicked()
     {
-        if (this.cardHandler.IsCurrentCard(cardView.transform))
-        {
-            cardView.CurrentState = CardView.CardState.Deployed;
-        }
+        this.cardHandler.QuickSelection(true);
+    }
+
+    public void OnQuickNoCLicked()
+    {
+        this.cardHandler.QuickSelection(false);
     }
 }

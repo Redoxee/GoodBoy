@@ -54,6 +54,8 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
 
         this.outerBound = (this.sceneCamera.orthographicSize ) *( (float)Screen.height / (float)Screen.width);
         this.currentCard = card1;
+        this.card1.SetVoteState(true, 0);
+        this.card2.SetVoteState(true, 0);
     }
 
     void SlideManager.IDragListener.OnBeginDrag(Vector2 pos)
@@ -91,25 +93,26 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
 
         float currentPosX = this.target.x;
 
-        const float margin = 3f;
-
-        Vector3 nextTarget;
         if (currentPosX >= this.choiceDistanceThreshold)
         {
-            nextTarget = new Vector3(this.outerBound * margin, this.target.y, this.target.z);
-            this.isTransitioningOut = true;
+            this.TransitionOut(true);
         }
         else if (currentPosX <= -this.choiceDistanceThreshold)
         {
-            nextTarget = new Vector3(- this.outerBound * margin, this.target.y, this.target.z);
-            this.isTransitioningOut = true;
+            this.TransitionOut(false);
         }
         else
         {
-            nextTarget = this.forground;
+            this.target = this.forground;
         }
+    }
 
-        this.target = nextTarget;
+    private void TransitionOut(bool isGood)
+    {
+        const float margin = 3f;
+        float direction = isGood ? 1 : -1;
+        this.target = new Vector3(this.outerBound * margin * direction, this.target.y, this.target.z);
+        this.isTransitioningOut = true;
     }
 
     void SlideManager.IDragListener.OnClick(Vector2 pos)
@@ -131,6 +134,12 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     private void Update()
     {
         Vector3 pos = this.currentCard.transform.position;
+
+        if ((pos - this.target).sqrMagnitude < .01)
+        {
+            return;
+        }
+
         float factor = this.transitionDampFactor;
         if (this.isDragging)
         {
@@ -146,6 +155,10 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         float angle = pos.x * this.rotationSpeed;
         this.currentCard.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
 
+        float progress = Mathf.Abs(pos.x) / this.choiceDistanceThreshold;
+        bool isGood = pos.x > 0f;
+        this.currentCard.SetVoteState(isGood, progress);
+
         if (this.isTransitioningOut && Mathf.Abs(pos.x) > this.outerBound)
         {
             this.isTransitioningOut = false;
@@ -159,6 +172,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     {
         this.currentCard.transform.localRotation = Quaternion.identity;
         this.currentCard.transform.position = this.background;
+        this.currentCard.SetVoteState(true, 0);
         this.currentCard.ForceClose(); 
 
         if (this.currentCard == this.card2)
@@ -176,5 +190,10 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     public bool IsCurrentCard(Transform transform)
     {
         return this.currentCard == transform;
+    }
+
+    public void QuickSelection(bool isGood)
+    {
+        this.TransitionOut(isGood);
     }
 }
