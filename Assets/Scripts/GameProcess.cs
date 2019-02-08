@@ -27,6 +27,10 @@ public class GameProcess : MonoBehaviour
     [SerializeField]
     private CardHandler cardHandler = null;
 
+    [SerializeField]
+    private Loader ContentLoader = null;
+    private ProfileGenerator profileGenerator = null;
+
     private void Awake()
     {
         if (GameProcess.InstanceStatic != null)
@@ -42,6 +46,11 @@ public class GameProcess : MonoBehaviour
         }
 
         GameProcess.InstanceStatic = this;
+        
+        this.ContentLoader.Load();
+        this.profileGenerator = new ProfileGenerator(this.ContentLoader.Database);
+
+        this.cardHandler.OnContentLoaded();
     }
 
     public void OnQuickLoveClicked()
@@ -52,5 +61,10 @@ public class GameProcess : MonoBehaviour
     public void OnQuickNoCLicked()
     {
         this.cardHandler.QuickSelection(false);
+    }
+
+    public Profile GetNewProfile()
+    {
+        return this.profileGenerator.GenerateProfile();
     }
 }

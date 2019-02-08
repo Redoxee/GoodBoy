@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardView : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class CardView : MonoBehaviour
     private AnimationCurve voteAlphaCurve = null;
     [SerializeField]
     private AnimationCurve voteScaleCurve = null;
+
+    [SerializeField]
+    private ProfileView profileView;
 
     private void Update()
     {
@@ -101,5 +105,42 @@ public class CardView : MonoBehaviour
         this.voteImage.color = color;
         float scaleProg = this.voteScaleCurve.Evaluate(progression);
         this.voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
+    }
+
+    public void Setup(Profile profile)
+    {
+        this.profileView.ProfilePic.sprite = profile.Pic;
+        this.profileView.Name.text = profile.Name;
+
+        string tags = string.Empty;
+        for (int index = 0; index < profile.Tags.Length; ++index)
+        {
+            tags += profile.Tags[index];
+            if (index + 1 < profile.Tags.Length)
+            {
+                tags += ",";
+            }
+        }
+        this.profileView.Tags.text = tags;
+
+        string trivias = string.Empty;
+        for (int index = 0; index < profile.Trivias.Length; ++index)
+        {
+            trivias += profile.Trivias[index];
+            if (index + 1 < profile.Trivias.Length)
+            {
+                trivias += "\n";
+            }
+        }
+        this.profileView.Trivias.text = trivias;
+    }
+
+    [System.Serializable]
+    public struct ProfileView
+    {
+        public Image ProfilePic;
+        public Text Name;
+        public Text Tags;
+        public Text Trivias;
     }
 }

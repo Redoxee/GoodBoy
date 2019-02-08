@@ -173,7 +173,10 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         this.currentCard.transform.localRotation = Quaternion.identity;
         this.currentCard.transform.position = this.background;
         this.currentCard.SetVoteState(true, 0);
-        this.currentCard.ForceClose(); 
+        this.currentCard.ForceClose();
+
+        Profile profile = GameProcess.Instance.GetNewProfile();
+        this.currentCard.Setup(profile);
 
         if (this.currentCard == this.card2)
         {
@@ -195,5 +198,13 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
     public void QuickSelection(bool isGood)
     {
         this.TransitionOut(isGood);
+    }
+
+    public void OnContentLoaded()
+    {
+        Profile prof = GameProcess.Instance.GetNewProfile();
+        this.card1.Setup(prof);
+        prof = GameProcess.Instance.GetNewProfile();
+        this.card2.Setup(prof);
     }
 }
