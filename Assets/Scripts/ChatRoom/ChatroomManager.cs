@@ -30,6 +30,8 @@ public class ChatroomManager : MonoBehaviour
 
     [SerializeField]
     private Transform WrittingNotif = null;
+    [SerializeField]
+    private Image WrittingPict = null;
 
     private Profile currentProfile = null;
 
@@ -68,6 +70,7 @@ public class ChatroomManager : MonoBehaviour
 
         this.currentProfile = profile;
         this.DogNameText.text = profile.Name;
+        this.WrittingPict.sprite = profile.Pict;
     }
 
     private void PostMessage()

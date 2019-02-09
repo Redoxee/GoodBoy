@@ -124,10 +124,6 @@ public class CardView : MonoBehaviour
         for (int index = 0; index < profile.Tags.Length; ++index)
         {
             tags += profile.Tags[index];
-            if (index + 1 < profile.Tags.Length)
-            {
-                tags += ",";
-            }
         }
         this.profileView.Tags.text = tags;
 
@@ -141,14 +137,17 @@ public class CardView : MonoBehaviour
             }
         }
         this.profileView.Trivias.text = trivias;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(this.contentTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(this.contentTransform);
     }
 
     [System.Serializable]
     public struct ProfileView
     {
         public Image ProfilePic;
-        public Text Name;
-        public Text Tags;
-        public Text Trivias;
+        public TMPro.TMP_Text Name;
+        public TMPro.TMP_Text Tags;
+        public TMPro.TMP_Text Trivias;
     }
 }

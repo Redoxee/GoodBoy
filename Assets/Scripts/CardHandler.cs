@@ -200,11 +200,10 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         this.TransitionOut(isGood);
     }
 
-    public void OnContentLoaded()
+    public void OnContentLoaded(Profile firstProfile)
     {
+        this.card1.Setup(firstProfile);
         Profile prof = GameProcess.Instance.GetNewProfile();
-        this.card1.Setup(prof);
-        prof = GameProcess.Instance.GetNewProfile();
         this.card2.Setup(prof);
     }
 
