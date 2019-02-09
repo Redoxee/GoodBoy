@@ -28,7 +28,7 @@ public class ProfileGenerator
         int nameIndex = this.random.Next(this.nbNames);
         profile.Name = this.database.Names[nameIndex];
         int picIndex = this.random.Next(this.nbPic);
-        profile.Pic = this.database.RadomeProfilPics[picIndex];
+        profile.Pict = this.database.RadomeProfilPics[picIndex];
 
         List<int> trivias = new List<int>();
         for (int i = 0; i < nbTriviaPerProfile; ++i)

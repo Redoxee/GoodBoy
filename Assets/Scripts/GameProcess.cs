@@ -31,6 +31,13 @@ public class GameProcess : MonoBehaviour
     private Loader ContentLoader = null;
     private ProfileGenerator profileGenerator = null;
 
+    [SerializeField]
+    private GameObject swipeRoom = null;
+    [SerializeField]
+    private ChatroomManager chatRoom = null;
+
+    private GameMode currentMode = GameMode.Swipe;
+
     private void Awake()
     {
         if (GameProcess.InstanceStatic != null)
@@ -51,6 +58,7 @@ public class GameProcess : MonoBehaviour
         this.profileGenerator = new ProfileGenerator(this.ContentLoader.Database);
 
         this.cardHandler.OnContentLoaded();
+        this.CloseChatRoom(); ;
     }
 
     public void OnQuickLoveClicked()
@@ -66,5 +74,28 @@ public class GameProcess : MonoBehaviour
     public Profile GetNewProfile()
     {
         return this.profileGenerator.GenerateProfile();
+    }
+
+    public void OpenChatRoom()
+    {
+        this.chatRoom.gameObject.SetActive(true);
+        this.swipeRoom.SetActive(false);
+        this.currentMode = GameMode.Chat;
+
+        Profile profile =  this.cardHandler.GetCurrentProfile();
+        this.chatRoom.Setup(profile);
+    }
+
+    public void CloseChatRoom()
+    {
+        this.chatRoom.gameObject.SetActive(false);
+        this.swipeRoom.gameObject.SetActive(true);
+        this.currentMode = GameMode.Swipe;
+    }
+
+    public enum GameMode
+    {
+        Swipe,
+        Chat
     }
 }

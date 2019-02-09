@@ -207,4 +207,9 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         prof = GameProcess.Instance.GetNewProfile();
         this.card2.Setup(prof);
     }
+
+    public Profile GetCurrentProfile()
+    {
+        return this.currentCard.Profile;
+    }
 }

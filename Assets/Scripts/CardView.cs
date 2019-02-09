@@ -32,6 +32,12 @@ public class CardView : MonoBehaviour
     [SerializeField]
     private ProfileView profileView;
 
+    public Profile Profile
+    {
+        private set;
+        get;
+    }
+
     private void Update()
     {
         this.UpdateDeployment();
@@ -109,7 +115,9 @@ public class CardView : MonoBehaviour
 
     public void Setup(Profile profile)
     {
-        this.profileView.ProfilePic.sprite = profile.Pic;
+        this.Profile = profile;
+
+        this.profileView.ProfilePic.sprite = profile.Pict;
         this.profileView.Name.text = profile.Name;
 
         string tags = string.Empty;
