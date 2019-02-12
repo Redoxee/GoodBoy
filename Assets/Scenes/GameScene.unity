@@ -2783,9 +2783,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1277191756}
+  - component: {fileID: 1277191758}
   - component: {fileID: 1277191755}
   - component: {fileID: 1277191757}
-  - component: {fileID: 1277191758}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2864,12 +2864,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1277191754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db795a59375e57e4798bf513f6997ac7, type: 3}
+  m_Script: {fileID: 11500000, guid: 08ec16f9a4a99824eb4fa2e5ef7dfb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FileToLoad:
-  - {fileID: 4900000, guid: 3355c5040ef2146498819d23bc0d4983, type: 3}
-  - {fileID: 4900000, guid: a22a935cad12c844d8cbd78846fbb2a0, type: 3}
+  FileToLoad: []
   Pics:
   - {fileID: 21300000, guid: 676254e20f123f04dbc67b2809383b31, type: 3}
   - {fileID: 21300000, guid: 1324d5da83371944c8e43dd5dc5e5390, type: 3}
@@ -2877,6 +2875,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 97a1feea686fb4445ac93f0adbfffede, type: 3}
   - {fileID: 21300000, guid: 87bd8b25b158886418927720d5356319, type: 3}
   - {fileID: 21300000, guid: 2af44b1e883c9e94eb1c1b753730ad3c, type: 3}
+  CSVFile: {fileID: 4900000, guid: 2dcdff010694db646aaa8c7a536e098c, type: 3}
+  NameColumn: 0
+  HashTagColumn: 2
+  TriviaColumn: 3
+  SpeechColumn: 6
 --- !u!1 &1306003383
 GameObject:
   m_ObjectHideFlags: 0
