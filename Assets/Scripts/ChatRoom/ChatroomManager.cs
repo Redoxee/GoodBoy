@@ -16,8 +16,7 @@ public class ChatroomManager : MonoBehaviour
     [SerializeField]
     private Text DogNameText = null;
 
-    [SerializeField]
-    private string[] DogSpeech = null;
+    public List<string> DogSpeech = null;
 
     private List<GameObject> postedMessages = new List<GameObject>();
 
@@ -53,8 +52,9 @@ public class ChatroomManager : MonoBehaviour
         GameProcess.Instance.CloseChatRoom();
     }
 
-    public void Setup(Profile profile)
+    public void Setup(Profile profile, List<string> dogSpeeches)
     {
+        this.DogSpeech = DogSpeech;
         if (profile == this.currentProfile)
         {
             return;
@@ -99,7 +99,7 @@ public class ChatroomManager : MonoBehaviour
     {
         GameObject dogMessage = UnityEngine.GameObject.Instantiate(this.dogMessagePrefab, this.messagesRoot, false);
 
-        int index = UnityEngine.Random.Range(0, this.DogSpeech.Length);
+        int index = UnityEngine.Random.Range(0, this.DogSpeech.Count);
         string speech = this.DogSpeech[index];
         MessageView messageView = dogMessage.GetComponent<MessageView>();
         messageView.MessageBody.text = speech;

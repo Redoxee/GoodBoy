@@ -52,7 +52,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
         GameProcess.Instance.SlideManager.RegisterListener(this);
 
-        this.outerBound = (this.sceneCamera.orthographicSize ) *( (float)Screen.height / (float)Screen.width);
+        this.outerBound = (this.sceneCamera.orthographicSize ) /( (float)Screen.height / (float)Screen.width);
         this.currentCard = card1;
         this.card1.SetVoteState(true, 0);
         this.card2.SetVoteState(true, 0);

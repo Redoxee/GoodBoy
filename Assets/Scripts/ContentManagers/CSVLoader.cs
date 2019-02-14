@@ -37,7 +37,7 @@ public class CSVLoader : Loader
 
             if (!string.IsNullOrEmpty(array[this.SpeechColumn]))
             {
-                database.Names.Add(array[this.SpeechColumn]);
+                database.DogSpeeches.Add(array[this.SpeechColumn]);
             }
 
             row = reader.ReadLine();

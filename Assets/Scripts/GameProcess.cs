@@ -91,7 +91,7 @@ public class GameProcess : MonoBehaviour
         this.swipeRoom.SetActive(false);
         this.currentMode = GameMode.Chat;
 
-        this.chatRoom.Setup(profile);
+        this.chatRoom.Setup(profile, this.ContentLoader.Database.DogSpeeches);
     }
 
     public void CloseChatRoom()
