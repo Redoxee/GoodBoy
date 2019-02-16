@@ -123,7 +123,7 @@ public class CardView : MonoBehaviour
         string tags = string.Empty;
         for (int index = 0; index < profile.Tags.Length; ++index)
         {
-            tags += profile.Tags[index];
+            tags += profile.Tags[index] + " ";
         }
         this.profileView.Tags.text = tags;
 
