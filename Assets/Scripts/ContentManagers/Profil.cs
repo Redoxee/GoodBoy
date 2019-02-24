@@ -5,4 +5,5 @@ public class Profile
     public string[] Tags = null;
     public string[] Trivias = null;
     public UnityEngine.Sprite Pict = null;
+    public bool isMute = false;
 }

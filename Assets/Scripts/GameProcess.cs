@@ -82,7 +82,7 @@ public class GameProcess : MonoBehaviour
     public void OpenChatRoom()
     {
         Profile profile =  this.cardHandler.GetCurrentProfile();
-        if (profile == this.FirstProfile)
+        if (profile.isMute)
         {
             return;
         }

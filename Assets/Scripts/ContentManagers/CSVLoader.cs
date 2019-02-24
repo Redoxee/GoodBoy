@@ -6,10 +6,24 @@ public class CSVLoader : Loader
 {
     [SerializeField]
     public TextAsset CSVFile = null;
-    public int NameColumn = 0;
-    public int HashTagColumn = 2;
-    public int TriviaColumn = 3;
-    public int SpeechColumn = 6;
+
+    public enum Columns
+    {
+        Names,
+        Nothing,
+        HashTags,
+        Trivias,
+        ProceduralWeight,
+        Nothing_,
+        LegendNames,
+        LegendHashTags,
+        LegendStories,
+        LegendTextures,
+        LegendWeight,
+        LegendMute,
+        Nothing__,
+        DogSpeech,
+    }
 
     public override bool Load()
     {
@@ -22,22 +36,22 @@ public class CSVLoader : Loader
         while (row != null) 
         {
             array = row.Split('\t');
-            if (!string.IsNullOrEmpty(array[NameColumn]))
+            if (!string.IsNullOrEmpty(array[(int)CSVLoader.Columns.Names]))
             {
-                database.Names.Add(array[NameColumn]);
+                database.Names.Add(array[(int)CSVLoader.Columns.Names]);
             }
 
-            if (!string.IsNullOrEmpty(array[this.HashTagColumn]) && !string.IsNullOrEmpty(array[this.TriviaColumn]))
+            if (!string.IsNullOrEmpty(array[(int)CSVLoader.Columns.HashTags]) && !string.IsNullOrEmpty(array[(int)CSVLoader.Columns.Trivias]))
             {
                 TagTriviaCouple couple = new TagTriviaCouple();
-                couple.Tag = array[this.HashTagColumn];
-                couple.Trivia = array[this.TriviaColumn];
+                couple.Tag = array[(int)CSVLoader.Columns.HashTags];
+                couple.Trivia = array[(int)CSVLoader.Columns.Trivias];
                 database.DesciptionContent.Add(couple);
             }
 
-            if (!string.IsNullOrEmpty(array[this.SpeechColumn]))
+            if (!string.IsNullOrEmpty(array[(int)CSVLoader.Columns.DogSpeech]))
             {
-                database.DogSpeeches.Add(array[this.SpeechColumn]);
+                database.DogSpeeches.Add(array[(int)CSVLoader.Columns.DogSpeech]);
             }
 
             row = reader.ReadLine();
