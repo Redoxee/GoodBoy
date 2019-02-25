@@ -76,7 +76,7 @@ public class GameProcess : MonoBehaviour
 
     public Profile GetNewProfile()
     {
-        return this.profileGenerator.GenerateProfile();
+        return this.profileGenerator.PickRandomProfile();
     }
 
     public void OpenChatRoom()

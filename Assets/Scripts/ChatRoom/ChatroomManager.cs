@@ -54,7 +54,7 @@ public class ChatroomManager : MonoBehaviour
 
     public void Setup(Profile profile, List<string> dogSpeeches)
     {
-        this.DogSpeech = DogSpeech;
+        this.DogSpeech = dogSpeeches;
         if (profile == this.currentProfile)
         {
             return;

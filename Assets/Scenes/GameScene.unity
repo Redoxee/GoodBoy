@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2876,11 +2876,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 97a1feea686fb4445ac93f0adbfffede, type: 3}
   - {fileID: 21300000, guid: 87bd8b25b158886418927720d5356319, type: 3}
   - {fileID: 21300000, guid: 2af44b1e883c9e94eb1c1b753730ad3c, type: 3}
+  - {fileID: 21300000, guid: c35b70953b04743489f77a6faaabc0d7, type: 3}
   CSVFile: {fileID: 4900000, guid: 98f3c6db3d98cf24dad531a9140961a6, type: 3}
-  NameColumn: 0
-  HashTagColumn: 2
-  TriviaColumn: 3
-  SpeechColumn: 6
 --- !u!1 &1306003383
 GameObject:
   m_ObjectHideFlags: 0

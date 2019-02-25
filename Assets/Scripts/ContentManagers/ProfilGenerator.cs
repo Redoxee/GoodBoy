@@ -13,9 +13,6 @@ public class ProfileGenerator
 
     const int nbTriviaPerProfile = 3;
 
-    private int proceduralProfileWeight = 10;
-    private KeyValuePair<int, Profile>[] LegendaryProfiles;
-
     public ProfileGenerator(ContentDatabase database)
     {
         this.database = database;
@@ -62,26 +59,26 @@ public class ProfileGenerator
 
     public Profile PickRandomProfile()
     {
-        int weigthSum = this.proceduralProfileWeight;
-        for (int index = 0; index < this.LegendaryProfiles.Length; ++index)
+        int weigthSum = this.database.ProceduralWeight;
+        for (int index = 0; index < this.database.LegendaryProfiles.Count; ++index)
         {
-            weigthSum += this.LegendaryProfiles[index].Key;
+            weigthSum += this.database.LegendaryProfiles[index].Key;
         }
 
         int forcePicked = this.random.Next(weigthSum);
-        if (forcePicked < this.proceduralProfileWeight)
+        if (forcePicked < this.database.ProceduralWeight)
         {
             return this.GenerateProfile();
         }
 
-        forcePicked -= this.proceduralProfileWeight;
-        for (int index = 0; index < this.LegendaryProfiles.Length; ++index)
+        forcePicked -= this.database.ProceduralWeight;
+        for (int index = 0; index < this.database.LegendaryProfiles.Count; ++index)
         {
-            if (forcePicked < this.LegendaryProfiles[index].Key)
+            if (forcePicked < this.database.LegendaryProfiles[index].Key)
             {
-                return this.LegendaryProfiles[index].Value;
+                return this.database.LegendaryProfiles[index].Value;
             }
-            forcePicked -= this.LegendaryProfiles[index].Key;
+            forcePicked -= this.database.LegendaryProfiles[index].Key;
         }
 
         Debug.LogError("Something's wrong in the profile picker algorithm");
