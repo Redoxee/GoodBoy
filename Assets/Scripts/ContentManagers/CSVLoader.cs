@@ -23,6 +23,8 @@ public class CSVLoader : Loader
         LegendMute,
         Nothing__,
         DogSpeech,
+        Nothing___,
+        SpecialSpeech,
     }
 
     public override bool Load()
@@ -90,6 +92,32 @@ public class CSVLoader : Loader
                 int weight = int.Parse(stringWeight);
 
                 database.ProceduralWeight = weight;
+            }
+
+            if(!string.IsNullOrEmpty(splitted[(int)CSVLoader.Columns.SpecialSpeech]))
+            {
+                string speechTrigger = splitted[(int)CSVLoader.Columns.SpecialSpeech].ToLower();
+                List<List<string>> speeches;
+                if (database.SpecialSpeeches.ContainsKey(speechTrigger))
+                {
+                    speeches = database.SpecialSpeeches[speechTrigger];
+                }
+                else
+                {
+                    speeches = new List<List<string>>();
+                    database.SpecialSpeeches[speechTrigger] = speeches;
+                }
+
+                List<string> speech = new List<string>();
+
+                int replyIndex = (int)CSVLoader.Columns.SpecialSpeech + 1;
+                while (replyIndex < splitted.Length && !string.IsNullOrEmpty(splitted[replyIndex]))
+                {
+                    speech.Add(splitted[replyIndex]);
+                    replyIndex++;
+                }
+
+                speeches.Add(speech);
             }
 
             row = reader.ReadLine();

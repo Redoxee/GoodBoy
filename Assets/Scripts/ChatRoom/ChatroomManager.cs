@@ -18,9 +18,12 @@ public class ChatroomManager : MonoBehaviour
 
     public List<string> DogSpeech = null;
 
+    public Dictionary<string, List<List<string>>> DogSpecialSpeech = null;
+
     private List<GameObject> postedMessages = new List<GameObject>();
 
-    private List<float> delayedDogMessage = new List<float>();
+    private List<string> delayedDogMessage = new List<string>();
+    private float currentWaitTime = -1f;
 
     [SerializeField]
     private float minWaitTime = 1f;
@@ -52,9 +55,10 @@ public class ChatroomManager : MonoBehaviour
         GameProcess.Instance.CloseChatRoom();
     }
 
-    public void Setup(Profile profile, List<string> dogSpeeches)
+    public void Setup(Profile profile, List<string> dogSpeeches, Dictionary<string, List<List<string>>> specialSpeeches)
     {
         this.DogSpeech = dogSpeeches;
+        this.DogSpecialSpeech = specialSpeeches;
         if (profile == this.currentProfile)
         {
             return;
@@ -89,9 +93,28 @@ public class ChatroomManager : MonoBehaviour
         
         this.postedMessages.Add(userMessageObject);
 
-        float waitTime = UnityEngine.Random.Range(this.minWaitTime, this.maxWaitTime);
-        this.delayedDogMessage.Add(waitTime);
-        this.delayedDogMessage.Sort();
+        string trigger = message.Trim().ToLower();
+
+        if (this.DogSpecialSpeech.ContainsKey(trigger))
+        {
+            int index = UnityEngine.Random.Range(0, this.DogSpecialSpeech[trigger].Count);
+            foreach (string doggoMessage in this.DogSpecialSpeech[trigger][index])
+            {
+                string formated = string.Format(doggoMessage, this.currentProfile.Name);
+                this.delayedDogMessage.Add(formated);
+            }
+        }
+        else
+        {
+            int index = UnityEngine.Random.Range(0, this.DogSpeech.Count);
+            this.delayedDogMessage.Add(this.DogSpeech[index]);
+        }
+
+        if (this.currentWaitTime < 0)
+        {
+            this.currentWaitTime = UnityEngine.Random.Range(this.minWaitTime, this.maxWaitTime);
+        }
+
         this.RecomputeLayout();
     }
 
@@ -99,8 +122,8 @@ public class ChatroomManager : MonoBehaviour
     {
         GameObject dogMessage = UnityEngine.GameObject.Instantiate(this.dogMessagePrefab, this.messagesRoot, false);
 
-        int index = UnityEngine.Random.Range(0, this.DogSpeech.Count);
-        string speech = this.DogSpeech[index];
+        string speech = this.delayedDogMessage[0];
+        this.delayedDogMessage.RemoveAt(0);
         MessageView messageView = dogMessage.GetComponent<MessageView>();
         messageView.MessageBody.text = speech;
         messageView.Pict.sprite = this.currentProfile.Pict;
@@ -126,28 +149,24 @@ public class ChatroomManager : MonoBehaviour
             return;
         }
 
-        for (int index = 0; index < this.delayedDogMessage.Count; ++index)
+        if (this.currentWaitTime < 0f)
         {
-            this.delayedDogMessage[index] -= Time.deltaTime;
+            return;
         }
 
-        if (this.delayedDogMessage[0] < 0f)
+        this.currentWaitTime -= Time.deltaTime;
+
+        if (this.currentWaitTime < 0f)
         {
-            this.delayedDogMessage.RemoveAt(0);
             this.SpawnDogMessage();
 
-            if (this.delayedDogMessage.Count > 0 && this.delayedDogMessage[0] < 1f)
+            if (this.delayedDogMessage.Count > 0)
             {
-                for (int index = 0; index < this.delayedDogMessage.Count; ++index)
-                {
-                    this.delayedDogMessage[index] += 1;
-                }
+                this.currentWaitTime = UnityEngine.Random.Range(this.minWaitTime, this.maxWaitTime) + this.timeBeforeWrittingNotif;
             }
-
-            this.delayedDogMessage.Sort();
         }
 
-        if (this.delayedDogMessage.Count > 0 && this.delayedDogMessage[0] < this.timeBeforeWrittingNotif && !this.WrittingNotif.gameObject.activeSelf)
+        if (this.delayedDogMessage.Count > 0 && this.currentWaitTime < this.timeBeforeWrittingNotif && !this.WrittingNotif.gameObject.activeSelf)
         {
             this.WrittingNotif.gameObject.SetActive(true);
         }
