@@ -52,7 +52,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         }
         GameProcess.Instance.SlideManager.RegisterListener(this);
 
-        this.outerBound = (this.sceneCamera.orthographicSize ) /( (float)Screen.height / (float)Screen.width);
+        this.outerBound = (this.sceneCamera.orthographicSize ) /( (float)Screen.height / (float)Screen.width) * 2f;
         this.currentCard = card1;
         this.card1.SetVoteState(true, 0);
         this.card2.SetVoteState(true, 0);
@@ -112,6 +112,8 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
         const float margin = 3f;
         float direction = isGood ? 1 : -1;
         this.target = new Vector3(this.outerBound * margin * direction, this.target.y, this.target.z);
+        Debug.Log(this.target);
+
         this.isTransitioningOut = true;
     }
 
@@ -161,6 +163,7 @@ public class CardHandler : MonoBehaviour, SlideManager.IDragListener
 
         if (this.isTransitioningOut && Mathf.Abs(pos.x) > this.outerBound)
         {
+            Debug.Log(string.Format("{0} > {1}", pos, this.outerBound));
             this.isTransitioningOut = false;
             this.target = this.forground;
             this.currentVelocity = new Vector3(0, 0, 0);

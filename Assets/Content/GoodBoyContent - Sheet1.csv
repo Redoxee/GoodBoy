@@ -1,24 +1,30 @@
-Names		HashTags	Trivia	Procedural Weight		Legend Name	Legend Hashtags	Legend Story	Legend Texture	Legend weight	Legend isMute		DogSpeech		Speech trigger			
-Bouni		#PugLife	I like to snuggle and to sneeze.	40		Jack	#Legend	I'm jack! \nHey Ho	Doggo	10			Woof.		go fetch	Woof	*{0} is away*	*{0} brought back a stick*
-Anton		#CoffeLover	I can't start my day without my morning coffee.										WOOF!		pet	*{0} is happy*		
-Jack		#NoWaste	If I barf, I eat, no trace, no waste.										Barf.		Who's a good boy?	wof ?		
-Amy		#Choco	They say I can't eat choclate, I say you can't prevent me.										Woarf?		go fetch	Woof	*{0} is away*	*{0} brought back a tire*
-Frank		#FreshAir	If I don't go out every two hours, I'll pee on the rug.										Arf?					
-Robert		#Snuff	Whether you like it or not, I'll snuff your butt!										Wooof?					
-Sally		#Running	I Like to play fetch in the park every evening!										Worf.					
-Puggo		#Hunting	I like to run after things and bite them.										Kai!					
-Shibbi		#CatlateralDamges	I don't like cat.										Row?					
-Snoop		#ColorblindBoy	my favorite color is green, red :p										Wouaf!					
-Earl		#SecretLife	Really, I'm a wolf in disguise.										Yap.					
-Pit		#French	Omelette du fromage.										Yarp!					
-Dave		#Meta	Can you tell the people that made this don't have dogs?										Wouuuuuuu...					
-Trust		#Singer	I see myself as a singer, especially at 2am.										:p					
-Lass		#Wolf	I'm dark, Ihowl to the moon.										Grrrr.					
-Riab													Awwooo!					
-Tam													Ruf.					
-Tobb													Bork.					
-Bobby													*Stare*					
-Bill																		
-Milou																		
-Norkhan																		
-Nova																		
+Names		HashTags	Trivia	Procedural Weight		Legend Name	Legend Hashtags	Legend Story	Legend Texture	Legend weight	Legend isMute		DogSpeech		Speech trigger					
+Bouni		#PugLife	I like to snuggle and to sneeze.	10000		Jack	#Legend	I'm jack! \nHey Ho	Doggo	1			Woof.		go fetch	Woof	*{0} is away*	*{0} brought back a stick*		
+Anton		#CoffeLover	I can't start my day without my morning coffee.										WOOF!		pet	*{0} is happy*				
+Jack		#NoWaste	If I barf, I eat, no trace, no waste.										Barf.		Who's a good boy?	wof ?				
+Amy		#Choco	They say I can't eat choclate, I say you can't prevent me.										Woarf?		go fetch	Woof.	*{0} is away*	*{0} brought back a tire*		
+Frank		#FreshAir	If I don't go out every two hours, I'll pee on the rug.										Arf?		go fetch	Woof.	*{0} is away*	*{0} brought back a ball*		
+Robert		#Snuff	Whether you like it or not, I'll snuff your butt!										Wooof?		go fetch	Woof.	*{0} is away*	*{0} brought back nothing*		
+Sally		#Running	I Like to play fetch in the park every evening!										Worf.		Woof	wof.				
+Puggo		#Hunting	I like to run after things and bite them.										Kai!		Woof	Arf.				
+Shibbi		#CatlateralDamges	I don't like cat.										Row?		Woof	Wouaf!				
+Snoop		#ColorblindBoy	my favorite color is green, red :p										Wouaf!		Woof	Bork.				
+Earl		#SecretLife	Really, I'm a wolf in disguise.										Yap.		Woof	Wof.				
+Pit		#French	Omelette du fromage.										Yarp!		Woof	Arf.				
+Dave		#Meta	Can you tell the people that made this don't have dogs?										Wouuuuuuu...		Woof	Wouaf!				
+Trust		#Singer	I see myself as a singer, especially at 2am.										:p		Woof	Bork.				
+Lass		#Wolf	I'm dark, Ihowl to the moon.										Grrrr.		Woof	Wof.				
+Riab		#Reader	I like reading kant when no one's around.										Awwooo!		Woof	Arf!				
+Tam		#Biscuit	Bone biscuit are sooo cliché... but soo good!										Ruf.		Woof	Wouaf!				
+Tobb		#Clean	I'll jump in the first puddle of watter to clean myself!										Bork.		Woof	Bork.				
+Bobby		#Frodog	Do you want to build a snow dog ?										*Stare*		Woof	Wof?				
+Bill		#Wild	I used to run naked in the park, but no anymore.												Woof	Wof.				
+Milou															Woof	Arf?				
+Norkhan															Woof	Wouaf!				
+Nova															Woof	Bork.				
+															Woof	Wof.				
+															Woof	Hello.				
+															Give paw	*{0} gives the paw*				
+															Sit	*Sit				
+															:p	:p				
+															Woof	Woof!	Woof!!	WOOF!!!	WOOF! WOOF!	WOOF WOOF WOOOF!
