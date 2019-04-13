@@ -19,7 +19,9 @@ public class CardView : MonoBehaviour
     private CardState currentState = CardState.Folded;
 
     [SerializeField]
-    private UnityEngine.UI.Image voteImage = null;
+    private UnityEngine.UI.Image voteYesImage = null;
+    [SerializeField]
+    private UnityEngine.UI.Image voteNoImage = null;
     [SerializeField]
     private Sprite voteGoodSprite = null;
     [SerializeField]
@@ -104,19 +106,20 @@ public class CardView : MonoBehaviour
 
     public void SetVoteState(bool isGood, float progression = 0f)
     {
-        Sprite nextSprite = isGood ? this.voteGoodSprite : this.voteBadSprite;
-        if (this.voteImage.sprite != nextSprite)
-        {
-            this.voteImage.sprite = nextSprite;
-        }
+        Image voteImage = isGood ? this.voteYesImage : this.voteNoImage;
+        Image notVoteImage = !isGood ? this.voteYesImage : this.voteNoImage;
+
+        notVoteImage.gameObject.SetActive(false);
+        voteImage.gameObject.SetActive(true);
+
         progression = Mathf.Clamp01(progression);
         float colProgression = this.voteAlphaCurve.Evaluate(progression);
         Color color = new Color(1, 1, 1, colProgression);
-        this.voteImage.color = color;
+        voteImage.color = color;
         float scaleProg = this.voteScaleCurve.Evaluate(progression);
-        this.voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
+        voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
 
-        color = isGood ? Color.white : Color.black;
+        color = Color.white; // isGood ? Color.white : Color.black;
         color.a = colProgression * this.barckgroundVoteAlphaFactor;
         this.backgroundVote.color = color;
     }
