@@ -116,7 +116,7 @@ public class CardView : MonoBehaviour
         float scaleProg = this.voteScaleCurve.Evaluate(progression);
         this.voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
 
-        color = this.backgroundVote.color;
+        color = isGood ? Color.white : Color.black;
         color.a = colProgression * this.barckgroundVoteAlphaFactor;
         this.backgroundVote.color = color;
     }
