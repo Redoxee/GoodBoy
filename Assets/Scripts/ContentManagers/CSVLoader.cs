@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 public class CSVLoader : Loader
 {
@@ -34,10 +36,13 @@ public class CSVLoader : Loader
         string row = reader.ReadLine();
         string[] splitted = row.Split('\t');
 
+        Regex regex = new Regex("(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
         row = reader.ReadLine();
         while (row != null) 
         {
-            splitted = row.Split('\t');
+            MatchCollection columns = regex.Matches(row);
+            
+            splitted = columns.Cast<Match>().Select(m => m.Value.Replace("\"", "")).ToArray();
             if (!string.IsNullOrEmpty(splitted[(int)CSVLoader.Columns.Names]))
             {
                 database.Names.Add(splitted[(int)CSVLoader.Columns.Names]);
