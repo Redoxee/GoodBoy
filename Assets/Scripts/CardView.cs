@@ -28,7 +28,11 @@ public class CardView : MonoBehaviour
     private AnimationCurve voteAlphaCurve = null;
     [SerializeField]
     private AnimationCurve voteScaleCurve = null;
-
+    [SerializeField]
+    private UnityEngine.UI.Image backgroundVote = null;
+    [SerializeField]
+    [Range(0, 1)]
+    private float barckgroundVoteAlphaFactor = .5f;
     [SerializeField]
     private ProfileView profileView;
 
@@ -111,6 +115,10 @@ public class CardView : MonoBehaviour
         this.voteImage.color = color;
         float scaleProg = this.voteScaleCurve.Evaluate(progression);
         this.voteImage.transform.localScale = new Vector3(scaleProg, scaleProg, scaleProg);
+
+        color = this.backgroundVote.color;
+        color.a = colProgression * this.barckgroundVoteAlphaFactor;
+        this.backgroundVote.color = color;
     }
 
     public void Setup(Profile profile)
