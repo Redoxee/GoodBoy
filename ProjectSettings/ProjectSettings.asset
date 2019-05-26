@@ -122,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: TileLink0.0.11
+  bundleVersion: TileLink0.0.12
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,8 +160,8 @@ PlayerSettings:
     Android: com.AntonMakesGames.GoodBoy
     Standalone: com.AntonMakesGames.GoodBoy
   buildNumber:
-    iOS: 10
-  AndroidBundleVersionCode: 10
+    iOS: 11
+  AndroidBundleVersionCode: 11
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
